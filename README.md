@@ -37,6 +37,8 @@ First clone the repository in a new folder or in `remarksApp` folder created bef
 
 ```
 ├── remarksApp
+├── data
+│ 	├── data.json
 ├── build
 │ 	├── remarks.pkg
 │ 	├── remarks.exe.manifest

@@ -8,7 +8,8 @@ generated-*
 remarks11.py
 tab_content.py
 tabs.py
-
+#data folder
+data/
 
 ### Python ###
 # Byte-compiled / optimized / DLL files

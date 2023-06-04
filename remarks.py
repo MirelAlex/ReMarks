@@ -147,14 +147,6 @@ class RemarksApp(UserControl):
         )
         self.remarks = self.retrieve_data()
 
-        # self.tickets = Tabs(
-        #     selected_index=0,
-        #     on_change=self.tabs_changed,
-        #     scrollable=True,
-        #     tabs=[Tab(text="GMCTC-123"), Tab(text="GMCTC-1234"),
-        #           Tab(text="GMCTC-1213"), Tab(text="GMCTC-1253"), Tab(text="GMCTC-12333"), Tab(text="GMCTC-12s3")],
-        # )
-
         self.tickets = Dropdown(
             width=200,
             on_change=self.tabs_changed,
@@ -229,9 +221,7 @@ class RemarksApp(UserControl):
                                 self.remark_status_change, self.remark_delete, r["ticket_id"], r["remark_title"])
                 remark.completed = r["completed"]
                 result.controls.append(remark)
-            # self.new_remark.value = ""
-            # self.new_remark.focus()
-            # self.update()
+
         return result
 
     def validate_input(self):

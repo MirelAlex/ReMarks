@@ -20,8 +20,9 @@ class Store():
             print(
                 f"File '{self.file_path}' doesn't exist. Creating a new file.")
             with open(self.file_path, 'w') as file:
-                json.dump({}, file)
-            return {}
+                empty_obj = {"remarks": []}
+                json.dump(empty_obj, file)
+            return empty_obj
 
 
 file_path = '/data/data.json'

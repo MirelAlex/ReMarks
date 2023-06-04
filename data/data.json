@@ -1,34 +1,3 @@
 {
-    "remarks":[
-        {
-            "remark_name": "remark22",
-            "remark_title": "asd",
-            "ticket_id":  "#GMCTC-1",
-            "completed": 1
-        },
-        {
-            "remark_name": "remark2",
-            "remark_title": "asd",
-            "ticket_id":  "#GMCTC-1",
-            "completed": 0
-        },
-        {
-            "remark_name": "remark1",
-            "remark_title": "asd",
-            "ticket_id":  "#GMCTC-2",
-            "completed": 0
-        },
-        {
-            "remark_name": "remark2",
-            "remark_title": "asd",
-            "ticket_id":  "#GMCTC-2",
-            "completed": 0
-        },
-        {
-            "remark_name": "Implement INIT state to DiagState",
-            "remark_title": "Test off-state diag",
-            "ticket_id":  "#GMCTC-3",
-            "completed": 0
-        }
-    ]
+    "remarks": []
 }

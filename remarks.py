@@ -86,9 +86,12 @@ class Remark(UserControl):
 
     def save_clicked(self, e):
         self.display_remark.label = self.edit_remark.value
+        self.remark_name = self.edit_remark.value
         self.display_view.visible = True
         self.edit_view.visible = False
         self.update()
+        # TODO: don't use remark_status_change -> create a new method that bound to the Remark
+        self.remark_status_change(self)
 
     def status_changed(self, e):
         self.completed = self.display_remark.value
@@ -108,8 +111,8 @@ class Remark(UserControl):
 
 class RemarksApp(UserControl):
     def build(self):
-        datastore = Store('/data/data.json')
-        self.data = datastore.read_json()['remarks']
+        self.datastore = Store('/data/data.json')
+        self.data = self.datastore.read_json()
 
         self.ticket_number = TextField(
             prefix_text="#GMCTC-",
@@ -195,6 +198,13 @@ class RemarksApp(UserControl):
                 ),
             ],
         )
+
+    def save_data(self):
+        data_out = []
+        for remark in self.remarks.controls[:]:
+            object_remark = remark.parse_remark_as_obj()
+            data_out.append(object_remark)
+        self.datastore.save_data(data_out)
 
     def retrieve_data(self):
         result = Column()
@@ -342,6 +352,9 @@ class RemarksApp(UserControl):
             if not task.completed:
                 count += 1
         self.total_items_left.value = f"{count} total active item(s) left"
+        # TODO: move this somewhere else -> it saves the data to often
+        # TODO: also, maybe this update method it's called to often
+        self.save_data()
         super().update()
 
 

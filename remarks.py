@@ -1,4 +1,6 @@
+from datastore import Store
 import flet
+
 from flet import (
     Checkbox,
     Dropdown,
@@ -18,43 +20,18 @@ from flet import (
     colors,
     icons,
 )
-data = [
-    {
-        "remark_name": "remark22",
-        "remark_title": "asd",
-        "ticket_id":  "#GMCTC-1",
-        "completed": True
-    },
-    {
-        "remark_name": "remark2",
-        "remark_title": "asd",
-        "ticket_id":  "#GMCTC-1",
-        "completed": False
-    },
-    {
-        "remark_name": "remark1",
-        "remark_title": "asd",
-        "ticket_id":  "#GMCTC-2",
-        "completed": False
-    },
-    {
-        "remark_name": "remark2",
-        "remark_title": "asd",
-        "ticket_id":  "#GMCTC-2",
-        "completed": False
-    }
-]
 
 
 class Remark(UserControl):
-    def __init__(self, remark_name, remark_status_change, remark_delete, ticket_id, remark_title):
+    def __init__(self, remark_name, remark_status_change, remark_delete, ticket_id, remark_title, completed):
         super().__init__()
         self.ticket_id = ticket_id
-        self.completed = False
+        self.completed = bool(completed)
         self.remark_title = remark_title
         self.remark_name = remark_name
         self.remark_status_change = remark_status_change
         self.remark_delete = remark_delete
+        self.as_obj = self.parse_remark_as_obj()
 
     def build(self):
         self.display_remark = Checkbox(
@@ -120,11 +97,19 @@ class Remark(UserControl):
     def delete_clicked(self, e):
         self.remark_delete(self)
 
+    def parse_remark_as_obj(self):
+        return {
+            "remark_name": self.remark_name,
+            "remark_title": self.remark_title,
+            "ticket_id":  self.ticket_id,
+            "completed": self.completed
+        }
+
 
 class RemarksApp(UserControl):
     def build(self):
-        global data
-        self.data = data
+        datastore = Store('/data/data.json')
+        self.data = datastore.read_json()['remarks']
 
         self.ticket_number = TextField(
             prefix_text="#GMCTC-",
@@ -161,7 +146,7 @@ class RemarksApp(UserControl):
             on_click=self.delete_ticket,
         )
 
-        self.items_left = Text("0 items left")
+        self.total_items_left = Text("0 total items left")
 
         # update dropdown options
         self.update_dropdown()
@@ -200,7 +185,7 @@ class RemarksApp(UserControl):
                             alignment="spaceBetween",
                             vertical_alignment="center",
                             controls=[
-                                self.items_left,
+                                self.total_items_left,
                                 OutlinedButton(
                                     text="Clear completed", on_click=self.clear_clicked
                                 ),
@@ -214,13 +199,10 @@ class RemarksApp(UserControl):
     def retrieve_data(self):
         result = Column()
 
-        if len(self.data):
-            # print(self.data)
-            for r in self.data:
-                remark = Remark(r["remark_name"],
-                                self.remark_status_change, self.remark_delete, r["ticket_id"], r["remark_title"])
-                remark.completed = r["completed"]
-                result.controls.append(remark)
+        for r in self.data:
+            remark = Remark(r["remark_name"],
+                            self.remark_status_change, self.remark_delete, r["ticket_id"], r["remark_title"], r["completed"])
+            result.controls.append(remark)
 
         return result
 
@@ -272,7 +254,7 @@ class RemarksApp(UserControl):
             # ticket_id = "#GMCTC-" + self.tickets.value
             ticket_id = self.add_ticket_to_dropdown()
             task = Remark(self.new_remark.value,
-                          self.remark_status_change, self.remark_delete, ticket_id, self.new_title.value)
+                          self.remark_status_change, self.remark_delete, ticket_id, self.new_title.value, completed=False)
             self.remarks.controls.append(task)
             self.new_remark.value = ""
             self.new_remark.focus()
@@ -299,6 +281,7 @@ class RemarksApp(UserControl):
 
     def remark_delete(self, task):
         self.remarks.controls.remove(task)
+        self.update_dropdown()
         self.update()
 
     def tabs_changed(self, e):
@@ -308,11 +291,22 @@ class RemarksApp(UserControl):
         for task in self.remarks.controls[:]:
             if task.completed:
                 self.remark_delete(task)
+        self.update_dropdown()
+        self.update()
 
     def update_dropdown(self):
         unique_ids = set([r.ticket_id for r in self.remarks.controls])
+        options = [dropdown.Option('all')]
         for r in sorted(list(unique_ids)):
-            self.tickets.options.append(dropdown.Option(r))
+            options.append(dropdown.Option(r))
+        # after deleting remark the ticket is empty go to last ticket in list
+        if len(self.tickets.options) != len(options):
+            self.tickets.value = self.tickets.options[len(
+                self.tickets.options)-1].key
+        elif(len(options) == 1):
+            self.tickets.value = self.tickets.options[0].key
+        # update options with unique options
+        self.tickets.options = options
 
     def update(self):
         count = 0
@@ -347,7 +341,7 @@ class RemarksApp(UserControl):
 
             if not task.completed:
                 count += 1
-        self.items_left.value = f"{count} active item(s) left"
+        self.total_items_left.value = f"{count} total active item(s) left"
         super().update()
 
 

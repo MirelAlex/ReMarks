@@ -26,20 +26,7 @@ class Store():
                 json.dump(empty_obj, file)
             return empty_obj
 
-    def parse_data_read(self):
-        remarks_list = []
-        for ticket_key, ticket_obj in self.data_read.items():
-            obj = {"ticket_id": ticket_key}
-            for remark_details in ticket_obj["remarks"]:
-                obj.update(
-                    {"remark_title": remark_details["title"],
-                     "remark_name": remark_details["remark_name"],
-                     "completed": remark_details["completed"]})
-                remarks_list.append(copy.deepcopy(obj))
-        return remarks_list
-
     def save_data(self, data):
-        # Sample JSON data
         _data = {"remarks": data}
         # Save JSON data to a file
         with open(self.file_path, "w") as file:

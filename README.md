@@ -37,27 +37,27 @@ First clone the repository in a new folder or in `remarksApp` folder created bef
 
 ```
 ├── remarksApp
-├── data
-│ 	├── data.json
-├── build
-│ 	├── remarks.pkg
-│ 	├── remarks.exe.manifest
-│ 	├── ...
-├── dist
-│ 	├── remarks.exe
-├── venv
-│ 	├── Include
-│ 	├── Lib
-│ 	│ 	├── site-packages
-│ 	├── Scripts
-│ 	│ 	├── activate.bat
-│ 	│ 	├── ...
-│ 	├── pyvenv.cfg
-├── README.md ----------> This file
-├── icon.png
-├── requirements.txt
-├── remarks.py
-└── .gitignore
+    ├── data
+    │ 	├── data.json
+    ├── build
+    │ 	├── remarks.pkg
+    │ 	├── remarks.exe.manifest
+    │ 	├── ...
+    ├── dist
+    │ 	├── remarks.exe
+    ├── venv
+    │ 	├── Include
+    │ 	├── Lib
+    │ 	│ 	├── site-packages
+    │ 	├── Scripts
+    │ 	│ 	├── activate.bat
+    │ 	│ 	├── ...
+    │ 	├── pyvenv.cfg
+    ├── README.md ----------> This file
+    ├── icon.png
+    ├── requirements.txt
+    ├── remarks.py
+    └── .gitignore
 ```
 
 ## Activate python virtual environment

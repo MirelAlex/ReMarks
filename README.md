@@ -35,26 +35,28 @@ Python virtual environment created!✨
 
 First clone the repository in a new folder or in `remarksApp` folder created before then create there the virtual environment so the structure would look like this:
 
+```
 ├── remarksApp
-    ├── `build`
-    │   ├── remarks.pkg
-    │   ├── remarks.exe.manifest
-    │   ├── ...
-    ├── `dist`
-    │   ├── remarks.exe   
-    ├── `venv`
-    │   ├── Include
-    │   ├── Lib
-    │   │   ├── site-packages
-    │   ├── Scripts
-    │   │   ├── activate.bat
-    │   │   ├── ...
-    │   ├── pyvenv.cfg  
-    ├── `README.md` ----------> This file
-    ├── `icon.png`
-    ├── `requirements.txt`
-    ├── `remarks.py` 
-    └── `.gitignore`
+├── `build`
+│ 	├── remarks.pkg
+│ 	├── remarks.exe.manifest
+│ 	├── ...
+├── `dist`
+│ 	├── remarks.exe
+├── `venv`
+│ 	├── Include
+│ 	├── Lib
+│ 	│ 	├── site-packages
+│ 	├── Scripts
+│ 	│ 	├── activate.bat
+│ 	│ 	├── ...
+│ 	├── pyvenv.cfg
+├── `README.md` ----------> This file
+├── `icon.png`
+├── `requirements.txt`
+├── `remarks.py`
+└── `.gitignore`
+```
 
 ## Activate python virtual environment
 

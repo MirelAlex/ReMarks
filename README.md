@@ -31,6 +31,31 @@ Python virtual environment created!✨
 > - In this project `<virtual-environment-name>` is called _venv_, so you can call it however you want!
 > - Also, python interpreter version used was Python 3.9.0!
 
+## Clone the repo
+
+First clone the repository in a new folder or in `remarksApp` folder created before then create there the virtual environment so the structure would look like this:
+
+├── remarksApp
+    ├── `build`
+    │   ├── remarks.pkg
+    │   ├── remarks.exe.manifest
+    │   ├── ...
+    ├── `dist`
+    │   ├── remarks.exe   
+    ├── `venv`
+    │   ├── Include
+    │   ├── Lib
+    │   │   ├── site-packages
+    │   ├── Scripts
+    │   │   ├── activate.bat
+    │   │   ├── ...
+    │   ├── pyvenv.cfg  
+    ├── `README.md` ----------> This file
+    ├── `icon.png`
+    ├── `requirements.txt`
+    ├── `remarks.py` 
+    └── `.gitignore`
+
 ## Activate python virtual environment
 
 To activate the venv go to root folder of the project and run the activation script created before:

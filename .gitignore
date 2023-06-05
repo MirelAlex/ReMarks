@@ -9,7 +9,7 @@ remarks11.py
 tab_content.py
 tabs.py
 #data folder
-data/
+data/data.json
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
